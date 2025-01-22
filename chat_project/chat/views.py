@@ -15,8 +15,7 @@ def chat_home(request):
 def chat_room(request, username):
     other_user = User.objects.get(username=username)
     messages = ChatMessage.objects.filter(
-        (Q(sender=request.user) & Q(receiver=other_user))
-        (Q(sender=other_user) & Q(receiver=request.user))
+        (Q(sender=request.user, receiver=other_user)) | (Q(sender=other_user, receiver=request.user))
     ).order_by('timestamp')
     
     return render(request, 'chat/room.html', {
