@@ -65,7 +65,7 @@
 </div>
 
 <input type="hidden" id="receiver-id" value="{{ other_user.id }}">
-<script src="{% static 'chat/js/chat.js' %}"></script>    #loads the javascript file
+<script src="{% static 'chat/js/chat.js' %}"></script>    <!-- loads the javascript file -->
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         new ChatManager("{{ other_user.username }}", "{{ request.user.username }}");
