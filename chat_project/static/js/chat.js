@@ -44,7 +44,9 @@ class ChatManager {
     }
 
     handleMessage(e) {
+        console.log('Message received:', e.data);
         const data = JSON.parse(e.data);
+        
         const messageElement = document.createElement('div');
         const isCurrentUser = data.sender === this.currentUsername;
         

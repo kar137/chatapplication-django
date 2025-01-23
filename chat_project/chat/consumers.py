@@ -11,6 +11,8 @@ class ChatConsumer(AsyncWebsocketConsumer):
         self.room_name = self.scope['url_route']['kwargs']['room_name']
         self.room_group_name = f'chat_{self.room_name}'
 
+        print(f"WebSocket connected: {self.room_name}, User: {self.scope['user'].username}")
+
         #join the chat room group
         await self.channel_layer.group_add(
             self.room_group_name,
@@ -34,6 +36,8 @@ class ChatConsumer(AsyncWebsocketConsumer):
             sender = self.scope['user']   #retrieves sender user
             receiver_id = data['receiver_id']
 
+            print(f"Message received from {sender.username}: {message}")
+
             # Save message to database
             timestamp = timezone.now()
             await self.save_message(sender.id, receiver_id, message, timestamp)
@@ -54,6 +58,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
             print(f"Error processing message: {e}")
 
     async def chat_message(self, event):
+        print(f"Broadcasting message to room {self.room_name}: {event}")
         message = event['message']
         sender = event['sender']
         timestamp = event['timestamp']
@@ -76,6 +81,8 @@ class ChatConsumer(AsyncWebsocketConsumer):
                 message=message,
                 timestamp=timestamp
             )
+        
+            print(f"Message saved to database: {message}")
         except ObjectDoesNotExist:
             print("Error: Sender or receiver does not exist.")
         except Exception as e:
