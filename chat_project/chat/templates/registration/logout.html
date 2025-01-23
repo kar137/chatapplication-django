@@ -1,6 +1,12 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <h2>You have been logged out</h2>
-  <a href="{% url 'login' %}">Login again</a>
+    <div class="flex flex-col items-center justify-center min-h-screen bg-gray-100">
+        <div class="bg-white p-8 rounded-lg shadow-md text-center">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4">You have been logged out</h2>
+            <a href="{% url 'login' %}" class="text-blue-500 hover:underline text-lg">
+                Login again
+            </a>
+        </div>
+    </div>
 {% endblock %}
