@@ -3,17 +3,21 @@ from channels.generic.websocket import AsyncWebsocketConsumer
 from channels.db import database_sync_to_async
 from .models import ChatMessage
 from django.contrib.auth.models import User
+from django.utils import timezone
 
 class ChatConsumer(AsyncWebsocketConsumer):
     async def connect(self):
         self.room_name = self.scope['url_route']['kwargs']['room_name']
         self.room_group_name = f'chat_{self.room_name}'
 
+        #join the chat room group
         await self.channel_layer.group_add(
             self.room_group_name,
             self.channel_name
         )
-        await self.accept()
+
+        await self.accept() #accept the web socket connection
+
 
     async def disconnect(self, close_code):
         await self.channel_layer.group_discard(
@@ -22,13 +26,14 @@ class ChatConsumer(AsyncWebsocketConsumer):
         )
 
     async def receive(self, text_data):
-        data = json.loads(text_data)
+        data = json.loads(text_data)  #handles the incoming message
         message = data['message']
-        sender = self.scope['user']
+        sender = self.scope['user']   #retrieves sender user
         receiver_id = data['receiver_id']
 
         # Save message to database
-        await self.save_message(sender.id, receiver_id, message)
+        timestamp = timezone.now()
+        await self.save_message(sender.id, receiver_id, message, timestamp)
 
         await self.channel_layer.group_send(
             self.room_group_name,
@@ -36,21 +41,29 @@ class ChatConsumer(AsyncWebsocketConsumer):
                 'type': 'chat_message',
                 'message': message,
                 'sender': sender.username,
+                'timestamp': timestamp.isoformat(),  # Send timestamp as ISO format string
             }
         )
 
     async def chat_message(self, event):
+        message = event['message']
+        sender = event['sender']
+        timestamp = event['timestamp']
+
+        #send message to web socket
         await self.send(text_data=json.dumps({
-            'message': event['message'],
-            'sender': event['sender']
+            'message': message,
+            'sender': sender,
+            'timestamp': timestamp,
         }))
 
     @database_sync_to_async
-    def save_message(self, sender_id, receiver_id, message):
+    def save_message(self, sender_id, receiver_id, message, timestamp):  #save message to the database
         sender = User.objects.get(id=sender_id)
         receiver = User.objects.get(id=receiver_id)
         ChatMessage.objects.create(
             sender=sender,
             receiver=receiver,
-            message=message
+            message=message,
+            timestamp=timestamp
         )
