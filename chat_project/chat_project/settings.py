@@ -32,6 +32,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'channels',
+    "widget_tweaks",
     'chat',
     'django.contrib.admin',
     'django.contrib.auth',
