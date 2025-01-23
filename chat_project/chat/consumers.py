@@ -4,6 +4,7 @@ from channels.db import database_sync_to_async
 from .models import ChatMessage
 from django.contrib.auth.models import User
 from django.utils import timezone
+from django.core.exceptions import ObjectDoesNotExist
 
 class ChatConsumer(AsyncWebsocketConsumer):
     async def connect(self):
@@ -26,24 +27,31 @@ class ChatConsumer(AsyncWebsocketConsumer):
         )
 
     async def receive(self, text_data):
-        data = json.loads(text_data)  #handles the incoming message
-        message = data['message']
-        sender = self.scope['user']   #retrieves sender user
-        receiver_id = data['receiver_id']
 
-        # Save message to database
-        timestamp = timezone.now()
-        await self.save_message(sender.id, receiver_id, message, timestamp)
+        try:
+            data = json.loads(text_data)  #handles the incoming message
+            message = data['message']
+            sender = self.scope['user']   #retrieves sender user
+            receiver_id = data['receiver_id']
 
-        await self.channel_layer.group_send(
-            self.room_group_name,
-            {
-                'type': 'chat_message',
-                'message': message,
-                'sender': sender.username,
-                'timestamp': timestamp.isoformat(),  # Send timestamp as ISO format string
-            }
-        )
+            # Save message to database
+            timestamp = timezone.now()
+            await self.save_message(sender.id, receiver_id, message, timestamp)
+
+            await self.channel_layer.group_send(
+                self.room_group_name,
+                {
+                    'type': 'chat_message',
+                    'message': message,
+                    'sender': sender.username,
+                    'timestamp': timestamp.isoformat(),  # Send timestamp as ISO format string
+                }
+            )
+
+        except KeyError as e:
+            print(f"KeyError: {e} - Invalid message format")
+        except Exception as e:
+            print(f"Error processing message: {e}")
 
     async def chat_message(self, event):
         message = event['message']
@@ -59,11 +67,16 @@ class ChatConsumer(AsyncWebsocketConsumer):
 
     @database_sync_to_async
     def save_message(self, sender_id, receiver_id, message, timestamp):  #save message to the database
-        sender = User.objects.get(id=sender_id)
-        receiver = User.objects.get(id=receiver_id)
-        ChatMessage.objects.create(
-            sender=sender,
-            receiver=receiver,
-            message=message,
-            timestamp=timestamp
-        )
+        try:
+            sender = User.objects.get(id=sender_id)
+            receiver = User.objects.get(id=receiver_id)
+            ChatMessage.objects.create(
+                sender=sender,
+                receiver=receiver,
+                message=message,
+                timestamp=timestamp
+            )
+        except ObjectDoesNotExist:
+            print("Error: Sender or receiver does not exist.")
+        except Exception as e:
+            print(f"Error saving message to database: {e}")
