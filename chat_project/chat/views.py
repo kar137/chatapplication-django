@@ -1,10 +1,13 @@
+from django.db.models import Q
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login
+from django.contrib.auth.views import LoginView
 from django.contrib.auth.models import User
-from django.db.models import Q
 from .models import ChatMessage
+from django.http import JsonResponse
+import json
 # Create your views here.
 
 #Add registration view for user
@@ -36,3 +39,4 @@ def chat_room(request, username):
         'other_user': other_user,
         'messages': messages
     })
+
