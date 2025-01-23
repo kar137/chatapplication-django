@@ -41,7 +41,7 @@
             {% if messages %}
             {% for message in messages %}
                 <div class="flex {% if message.sender == request.user %}justify-end{% endif %}">
-                    <div class="max-w-xs lg:max-w-md {% if message.sender == request.user %}bg-blue-500 text-white{% else %}bg-white text-gray-800{% endif %} rounded-lg px-4 py-2 shadow">
+                    <div class="max-w-xs lg:max-w-md {% if message.sender == request.user %}bg-blue-500 text-black{% else %}bg-white text-gray-800{% endif %} rounded-lg px-4 py-2 shadow">
                         <p class="text-sm">{{ message.message }}</p>
                         <p class="text-xs mt-1 {% if message.sender == request.user %}text-blue-100{% else %}text-gray-500{% endif %}">
                             {{ message.timestamp|date:"g:i A" }}

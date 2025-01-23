@@ -17,10 +17,23 @@ class ChatManager {
             'ws://' + window.location.host + '/ws/chat/' + this.roomName + '/'
         );
 
-        this.chatSocket.onmessage = (e) => this.handleMessage(e);
-        this.chatSocket.onclose = (e) => this.handleClose(e);
-    }
+        this.chatSocket.onopen = () => {
+            console.log('WebSocket connection established');
+        };
 
+        this.chatSocket.onmessage = (e) => {
+            console.log('Message received:', e.data);
+            this.handleMessage(e);
+        };
+
+        this.chatSocket.onclose = (e) => {
+            console.error('WebSocket connection closed:', e);
+        };
+
+        this.chatSocket.onerror = (e) => {
+            console.error('WebSocket error:', e);
+        };
+    }
     setupEventListeners() {
         this.chatForm.addEventListener('submit', (e) => this.handleSubmit(e));
         this.messageInput.addEventListener('keypress', (e) => this.handleKeyPress(e));
@@ -31,7 +44,9 @@ class ChatManager {
     }
 
     handleMessage(e) {
+        console.log('Message received:', e.data);
         const data = JSON.parse(e.data);
+        
         const messageElement = document.createElement('div');
         const isCurrentUser = data.sender === this.currentUsername;
         

@@ -30,6 +30,7 @@ def chat_home(request):
 
 @login_required
 def chat_room(request, username):
+    users = User.objects.exclude(id=request.user.id)
     other_user = User.objects.get(username=username)
     messages = ChatMessage.objects.filter(
         (Q(sender=request.user, receiver=other_user)) | (Q(sender=other_user, receiver=request.user))
@@ -37,6 +38,7 @@ def chat_room(request, username):
     
     return render(request, 'chat/room.html', {
         'other_user': other_user,
-        'messages': messages
+        'messages': messages,
+        'users': users,
     })
 
