@@ -1,6 +1,7 @@
 import boto3
 import uuid
 
+# Initialize the S3 client
 s3_client = boto3.client('s3')
 
 def lambda_handler(event, context):
@@ -9,7 +10,7 @@ def lambda_handler(event, context):
     file_name = event.get('file_name', str(uuid.uuid4()))  # Unique file name if not provided
     
     # Specify the S3 bucket name
-    bucket_name = 'my-local-bucket'
+    bucket_name = 'your-s3-bucket-name'  # Replace with your bucket name
     
     # Upload the file to S3
     try:
