@@ -12,3 +12,7 @@ class ChatMessage(models.Model):
 
     class Meta:
         ordering = ['timestamp']
+
+    def __str__(self):
+        return f"{self.sender} {self.receiver} {self.message} {self.timestamp}"
+    

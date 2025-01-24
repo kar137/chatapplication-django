@@ -11,7 +11,7 @@
             {% for user in users %}
             <a href="{% url 'chat_room' user.username %}" class="flex items-center px-4 py-3 hover:bg-gray-50 transition duration-150 border-b border-gray-100">
                 <div class="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center text-white font-semibold">
-                    {{ user.username|make_list|first|upper }}
+                    {{ user.username|make_list|first|upper }}    <!-- sets the default profile image -->
                 </div>
                 <div class="ml-3">
                     <p class="text-sm font-medium text-gray-900">{{ user.username }}</p>

@@ -1,0 +1,49 @@
+# Core Django
+Django==5.0.0
+
+django-widget-tweaks
+
+# Django Channels for WebSocket support
+channels==4.0.0
+
+channels-redis
+
+
+# ASGI server for running Django Channels
+daphne==4.0.0
+
+# Database driver (use the appropriate one for your database)
+# For SQLite (default, no additional driver needed)
+# For PostgreSQL:
+psycopg2==2.9.9
+
+# For MySQL:
+mysqlclient==2.2.0
+
+# For production-ready static file handling
+whitenoise==6.6.0
+
+# Environment variables management (optional, but recommended)
+python-dotenv==1.0.0
+
+# Date and time handling (optional, but useful for timestamps)
+python-dateutil==2.8.2
+
+# Testing and development tools
+pytest==7.4.0
+pytest-django==4.7.0
+pytest-asyncio==0.23.0
+
+# Linting and code formatting
+black==23.9.1
+flake8==6.1.0
+
+# Debugging tools
+django-debug-toolbar==4.2.0
+
+# Frontend dependencies (if using npm/yarn, you can skip these)
+# For Tailwind CSS (optional)
+django-tailwind==3.6.0
+
+# For WebSocket client testing (optional)
+websocket-client==1.6.4

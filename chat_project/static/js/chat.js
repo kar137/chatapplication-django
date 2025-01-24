@@ -17,10 +17,23 @@ class ChatManager {
             'ws://' + window.location.host + '/ws/chat/' + this.roomName + '/'
         );
 
-        this.chatSocket.onmessage = (e) => this.handleMessage(e);
-        this.chatSocket.onclose = (e) => this.handleClose(e);
-    }
+        this.chatSocket.onopen = () => {
+            console.log('WebSocket connection established');
+        };
 
+        this.chatSocket.onmessage = (e) => {
+            console.log('Message received:', e.data);
+            this.handleMessage(e);
+        };
+
+        this.chatSocket.onclose = (e) => {
+            console.error('WebSocket connection closed:', e);
+        };
+
+        this.chatSocket.onerror = (e) => {
+            console.error('WebSocket error:', e);
+        };
+    }
     setupEventListeners() {
         this.chatForm.addEventListener('submit', (e) => this.handleSubmit(e));
         this.messageInput.addEventListener('keypress', (e) => this.handleKeyPress(e));
@@ -31,7 +44,9 @@ class ChatManager {
     }
 
     handleMessage(e) {
+        console.log('Message received:', e.data);
         const data = JSON.parse(e.data);
+        
         const messageElement = document.createElement('div');
         const isCurrentUser = data.sender === this.currentUsername;
         
@@ -40,7 +55,7 @@ class ChatManager {
                 <div class="max-w-xs lg:max-w-md ${isCurrentUser ? 'bg-blue-500 text-white' : 'bg-white text-gray-800'} rounded-lg px-4 py-2 shadow">
                     <p class="text-sm">${data.message}</p>
                     <p class="text-xs mt-1 ${isCurrentUser ? 'text-blue-100' : 'text-gray-500'}">
-                        ${new Date().toLocaleTimeString([], {hour: 'numeric', minute:'2-digit'})}
+                    ${new Date(data.timestamp).toLocaleTimeString([], {hour: 'numeric', minute:'2-digit'})}
                     </p>
                 </div>
             </div>
