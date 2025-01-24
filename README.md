@@ -48,7 +48,7 @@ This project includes:
 
 ### Hosted Link
 
-- [PythonAnywhere](https://www.pythonanywhere.com/user/Karan137/webapps/#id_karan137_pythonanywhere_com)
+- [PythonAnywhere](https://karan137.pythonanywhere.com/)
 
 ---
 
