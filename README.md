@@ -1,4 +1,4 @@
-# Project Submission
+# Project
 
 This project includes:
 
@@ -37,7 +37,7 @@ This project includes:
 ### Features
 
 - User authentication (signup/login).
-- Collapsible left menu to display registered users.
+- left menu to display registered users.
 - Real-time chat using WebSocket.
 - Database to store users and messages.
 - Retrieve and display old messages.
