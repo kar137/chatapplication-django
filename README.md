@@ -46,10 +46,6 @@ This project includes:
 
 - **GitHub Code**: [Django Code](https://github.com/kar137/90North-assignment/tree/main/chat_project)
 
-### Hosted Link
-
-- [PythonAnywhere](https://www.pythonanywhere.com/user/Karan137/webapps/#id_karan137_pythonanywhere_com)
-
 ---
 
 ## AWS Lambda Functions
