@@ -72,6 +72,8 @@ class ChatConsumer(AsyncWebsocketConsumer):
 
     @database_sync_to_async
     def save_message(self, sender_id, receiver_id, message, timestamp):  #save message to the database
+        from .models import ChatMessage
+        print(f"Saving message from sender {sender_id} to receiver {receiver_id}: {message}")
         try:
             sender = User.objects.get(id=sender_id)
             receiver = User.objects.get(id=receiver_id)
