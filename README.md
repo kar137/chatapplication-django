@@ -69,7 +69,6 @@ This project includes:
 
 ```bash
 1. Navigate to the `chat_project` folder:
-
    cd chat_project
 
 2. Install requirements.txt file
