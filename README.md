@@ -1,38 +1,24 @@
-# Project
+# Chat Application
 
-This project includes:
-
-1. A **responsive webpage** with a fixed navbar, collapsible left menu, main content area, right-side panel, and footer.
-2. A **Django chat application** with user authentication, real-time messaging using WebSocket, and a database to store users and messages.
-3. **AWS Lambda functions** to add two numbers and upload a file to an S3 bucket.
+A **Django chat application** with user authentication, real-time messaging using WebSocket, and a database to store users and messages.
 
 ---
 
 ## Table of Contents
 
-1. [Frontend Development](#frontend-development)
-2. [Django Chat Application](#django-chat-application)
-3. [AWS Lambda Functions](#aws-lambda-functions)
-4. [How to Run](#how-to-run)
-5. [Hosted Links](#hosted-links)
+1. [Django Chat Application](#django-chat-application)
+2. [How to Run](#how-to-run)
+3. [Hosted Links](#hosted-links)
 
 ---
 
-## Frontend Development
-
-### Features
-
-- Fixed navbar.
-- Collapsible left menu.
-- Main content area and right-side panel.
-- Footer at the bottom.
-- JavaScript function to adjust page size based on screen width.
-
-### Code
-
-- **GitHub Code**: [Frontend Code](https://github.com/kar137/90North-assignment/blob/main/webpage.html)
-
 ## Django Chat Application
+
+![Image](https://github.com/user-attachments/assets/d5a93d7b-5a4d-4c75-951b-cc8141f6494c)
+![Image](https://github.com/user-attachments/assets/f0a3ec2c-16d0-47e4-a308-1702c85b87b1)
+![Image](https://github.com/user-attachments/assets/832efc69-b9f7-4092-9350-b5c02e173cd0)
+![Image](https://github.com/user-attachments/assets/1c1c0331-3582-42c9-9f2a-1df9f1516548)
+![Image](https://github.com/user-attachments/assets/2816f034-1aaf-4caa-8d43-7dd2a44d1175)
 
 ### Features
 
@@ -45,21 +31,6 @@ This project includes:
 ### Code
 
 - **GitHub Code**: [Django Code](https://github.com/kar137/90North-assignment/tree/main/chat_project)
-
----
-
-## AWS Lambda Functions
-
-### Features
-
-1. **Add Two Numbers**:
-   - Takes two numbers as input and returns their sum.
-2. **Upload File to S3**:
-   - Uploads a document or PDF file to an S3 bucket.
-
-### Code
-
-- **GitHub Code**: [Lambda Code](https://github.com/kar137/90North-assignment/tree/main/lambda_project)
 
 ---
 
