@@ -14,12 +14,12 @@ A **Django chat application** with user authentication, real-time messaging usin
 
 ## Django Chat Application Screenshots
 
-### Login page
+### Register page
 <p align="center">
   <img src="https://github.com/user-attachments/assets/1c1c0331-3582-42c9-9f2a-1df9f1516548">
 </p>
 
-### Register Page
+### Login Page
 <p align="center">
   <img src="https://github.com/user-attachments/assets/d5a93d7b-5a4d-4c75-951b-cc8141f6494c">
 </p>
